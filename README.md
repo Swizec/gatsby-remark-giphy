@@ -1,4 +1,7 @@
 # gatsby-remark-giphy
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Gatsby Remark plugin to embed gifs with `![](giphy:yay_a_gif)`
 
@@ -93,5 +96,17 @@ You can configure how `gatsby-remark-giphy` works with these helpful options:
 ## Contributors ✨
 
 ## LICENSE
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://swizec.com"><img src="https://avatars0.githubusercontent.com/u/56883?v=4" width="100px;" alt=""/><br /><sub><b>Swizec Teller</b></sub></a><br /><a href="https://github.com/Swizec/gatsby-remark-giphy/commits?author=swizec" title="Code">💻</a> <a href="https://github.com/Swizec/gatsby-remark-giphy/commits?author=swizec" title="Documentation">📖</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 MIT
