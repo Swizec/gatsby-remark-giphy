@@ -95,7 +95,6 @@ You can configure how `gatsby-remark-giphy` works with these helpful options:
 
 ## Contributors ✨
 
-## LICENSE
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -108,5 +107,7 @@ You can configure how `gatsby-remark-giphy` works with these helpful options:
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## LICENSE
 
 MIT
