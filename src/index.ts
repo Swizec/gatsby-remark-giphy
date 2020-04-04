@@ -3,7 +3,7 @@ import giphyClient, { GIFObject } from "giphy-api";
 
 type PluginOptions = {
     giphyApiKey: string;
-    useVideo: boolean;
+    useVideo?: boolean;
 };
 
 function embedGif(imageNode, giphy: GIFObject) {
