@@ -1,9 +1,32 @@
 import visit from "unist-util-visit";
-import giphyClient from "giphy-api";
+import giphyClient, { GIFObject } from "giphy-api";
 
 type PluginOptions = {
     giphyApiKey: string;
+    useVideo: boolean;
 };
+
+function embedGif(imageNode, giphy: GIFObject) {
+    const search = imageNode.url.replace(/^giphy:/, "");
+
+    imageNode.alt = search;
+    imageNode.url = giphy.images.downsized_large.url;
+    imageNode.title = imageNode.title || search;
+
+    return imageNode;
+}
+
+function embedVideo(imageNode, giphy: GIFObject) {
+    const srcHTML = `<source src=${giphy.images.looping.mp4} type="video/mp4" />`;
+
+    imageNode.type = "html";
+    imageNode.children = undefined;
+    imageNode.value = `<video style="margin: auto auto; display: block; max-width: 100%" autoplay loop muted playsinline>
+            ${srcHTML}
+        </video>`;
+
+    return imageNode;
+}
 
 export default async function (
     { cache, markdownAST },
@@ -35,9 +58,11 @@ export default async function (
                     }
                 }
 
-                imageNode.url = data[0].images.downsized_large.url;
-                imageNode.alt = search;
-                imageNode.title = imageNode.title || search;
+                if (pluginOptions.useVideo) {
+                    imageNode = embedVideo(imageNode, data[0]);
+                } else {
+                    imageNode = embedGif(imageNode, data[0]);
+                }
             });
         }
     });
