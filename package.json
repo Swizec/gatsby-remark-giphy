@@ -1,0 +1,22 @@
+{
+    "name": "gatsby-remark-giphy",
+    "version": "1.0.0",
+    "description": "Embed giphy search results with ![](giphy:search_term))",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
+    "scripts": {
+        "build": "microbundle",
+        "dev": "microbundle watch"
+    },
+    "repository": "git@github.com:Swizec/gatsby-remark-giphy.git",
+    "author": "Swizec Teller <swizec@swizec.com>",
+    "license": "MIT",
+    "dependencies": {
+        "giphy-api": "^2.0.1",
+        "unist-util-visit": "^2.0.2"
+    },
+    "devDependencies": {
+        "@types/giphy-api": "^2.0.2",
+        "microbundle": "^0.11.0"
+    }
+}
