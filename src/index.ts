@@ -22,9 +22,22 @@ export default async function (
             transformations.push(async () => {
                 const search = url.replace(/^giphy:/, "");
 
-                const { data } = await giphy.search(search);
+                let data = await cache.get(search);
+
+                if (!data) {
+                    try {
+                        const result = await giphy.search(search);
+                        data = result.data;
+                        cache.set(search, result.data);
+                    } catch (err) {
+                        err.message = `The following error appeared while searching Giphy for ${search}:\n\n${err.message}`;
+                        throw err;
+                    }
+                }
 
                 imageNode.url = data[0].images.downsized_large.url;
+                imageNode.alt = search;
+                imageNode.title = imageNode.title || search;
             });
         }
     });
