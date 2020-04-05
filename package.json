@@ -8,6 +8,12 @@
         "build": "microbundle",
         "dev": "microbundle watch"
     },
+    "keywords": [
+        "gatsby",
+        "gatsby-plugin",
+        "giphy",
+        "markdown"
+    ],
     "repository": "git@github.com:Swizec/gatsby-remark-giphy.git",
     "author": "Swizec Teller <swizec@swizec.com>",
     "license": "MIT",
