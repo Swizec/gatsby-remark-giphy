@@ -92,7 +92,7 @@ You can configure how `gatsby-remark-giphy` works with these helpful options:
 - `giphyApiKey`: required - your [Giphy API Key](https://developers.giphy.com/). Create a Giphy developers account, request an API key, and you're ready to go. You should consider using this via an ENV variable of some sort instead of directly in your gatsby-config
 - `useVideo`: optional - _false_ by default. Whether to embed gifs as an autoplaying HTML5 video
 - `useIframe`: optional - _false_ by default. Whether to embed gifs as Giphy's iframe embed.
-- `embedWidth`: options - `100%` by default. Gif embed width for video and iframe options.
+- `embedWidth`: options - `100%` by default. Gif embed width for video and iframe options. 
 
 `gatsby-remark-giphy` uses plain gif-as-an-image embeds by default. Consider using iframes for best Lighthouse performance.
 

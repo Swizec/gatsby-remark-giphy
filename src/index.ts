@@ -42,11 +42,13 @@ async function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
         return res.json();
     });
 
-    const responsivePadding = Math.round((oembed.height / oembed.width) * 100);
+    const responsivePadding = Math.round(
+        (oembed.height / oembed.width) * Number(embedWidth.replace("%", ""))
+    );
 
     imageNode.type = "html";
     imageNode.children = undefined;
-    imageNode.value = `<div style="width:${embedWidth};height:0;padding-bottom:${responsivePadding}%;position:relative;"><iframe src="${giphy.embed_url}" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen></iframe></div>`;
+    imageNode.value = `<div style="width:${embedWidth};height:0;padding-bottom:${responsivePadding}%;position:relative;margin: 0 auto"><iframe src="${giphy.embed_url}" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen></iframe></div>`;
 
     return imageNode;
 }
