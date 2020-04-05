@@ -23,7 +23,7 @@ function embedVideo(imageNode, giphy: GIFObject, embedWidth) {
 
     imageNode.type = "html";
     imageNode.children = undefined;
-    imageNode.value = `<video style="margin: auto auto; display: block; max-width: ${embedWidth}" autoplay loop muted playsinline>
+    imageNode.value = `<video style="margin: auto auto; display: block; max-width: ${embedWidth}" autoplay loop muted playsinline loading="lazy">
             ${srcHTML}
         </video>`;
 
@@ -31,17 +31,6 @@ function embedVideo(imageNode, giphy: GIFObject, embedWidth) {
 }
 
 function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
-    // const oembed = await fetch(
-    //     `https://giphy.com/services/oembed?url=${giphy.embed_url}`
-    // ).then((res) => {
-    //     if (!res.ok) {
-    //         throw new Error(
-    //             `Request to giphy oembed for ${giphy.embed_url} return non-OK`
-    //         );
-    //     }
-    //     return res.json();
-    // });
-
     const responsivePadding = Math.round(
         (Number(giphy.images.original.height) /
             Number(giphy.images.original.width)) *
@@ -50,7 +39,7 @@ function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
 
     imageNode.type = "html";
     imageNode.children = undefined;
-    imageNode.value = `<div style="width:${embedWidth};height:0;padding-bottom:${responsivePadding}%;position:relative;margin: 0 auto"><iframe src="${giphy.embed_url}" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen></iframe></div>`;
+    imageNode.value = `<div style="width:${embedWidth};height:0;padding-bottom:${responsivePadding}%;position:relative;margin: 0 auto"><iframe src="${giphy.embed_url}" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen loading="lazy"></iframe></div>`;
 
     return imageNode;
 }

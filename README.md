@@ -1,6 +1,9 @@
 # gatsby-remark-giphy
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Gatsby Remark plugin to embed gifs with `![](giphy:yay_a_gif)`
@@ -39,24 +42,24 @@ yarn add gatsby-remark-giphy
 // In your gatsby-config.js
 
 module.exports = {
-  // Find the 'plugins' array
-  plugins: [
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-giphy`,
+    // Find the 'plugins' array
+    plugins: [
+        {
+            resolve: `gatsby-transformer-remark`,
             options: {
-              giphyApiKey: `<your-api-key>`
-            },
-          },
+                plugins: [
+                    {
+                        resolve: `gatsby-remark-giphy`,
+                        options: {
+                            giphyApiKey: `<your-api-key>`,
+                        },
+                    },
 
-          // Other plugins here...
-        ],
-      },
-    },
-  ],
+                    // Other plugins here...
+                ],
+            },
+        },
+    ],
 };
 ```
 
@@ -64,24 +67,24 @@ module.exports = {
 // In your gatsby-config.js
 
 module.exports = {
-  // Find the 'plugins' array
-  plugins: [
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-giphy`,
+    // Find the 'plugins' array
+    plugins: [
+        {
+            resolve: `gatsby-plugin-mdx`,
             options: {
-              giphyApiKey: `<your-api-key>`
-            },
-          },
+                gatsbyRemarkPlugins: [
+                    {
+                        resolve: `gatsby-remark-giphy`,
+                        options: {
+                            giphyApiKey: `<your-api-key>`,
+                        },
+                    },
 
-          // Other plugins here...
-        ],
-      },
-    },
-  ],
+                    // Other plugins here...
+                ],
+            },
+        },
+    ],
 };
 ```
 
@@ -89,41 +92,38 @@ module.exports = {
 
 You can configure how `gatsby-remark-giphy` works with these helpful options:
 
-- `giphyApiKey`: required - your [Giphy API Key](https://developers.giphy.com/). Create a Giphy developers account, request an API key, and you're ready to go. You should consider using this via an ENV variable of some sort instead of directly in your gatsby-config
-- `useVideo`: optional - _false_ by default. Whether to embed gifs as an autoplaying HTML5 video
-- `useIframe`: optional - _false_ by default. Whether to embed gifs as Giphy's iframe embed.
-- `embedWidth`: options - `100%` by default. Gif embed width for video and iframe options. 
+-   `giphyApiKey`: required - your [Giphy API Key](https://developers.giphy.com/). Create a Giphy developers account, request an API key, and you're ready to go. You should consider using this via an ENV variable of some sort instead of directly in your gatsby-config
+-   `useVideo`: optional - _false_ by default. Whether to embed gifs as an autoplaying HTML5 video
+-   `useIframe`: optional - _false_ by default. Whether to embed gifs as Giphy's iframe embed.
+-   `embedWidth`: options - `100%` by default. Gif embed width for video and iframe options.
 
-`gatsby-remark-giphy` uses plain gif-as-an-image embeds by default. 
+`gatsby-remark-giphy` uses plain gif-as-an-image embeds by default.
 
 ### Getting the best performance
 
-Using [ServerlessReact.Dev](https://serverlessreact.dev) homepage to measure, here's a couple different configuration options and how they perform. 
+Video and iframe embeds use native lazy loading. Here's a performance comparison using an in-browser Lighthouse audit with different options.
 
-There's a bunch of stuff on the page slowing it down. Configs for the 8 gifs embedded via `![](giphy:)` are the only variable changing between tests.
+Measured using [ServerlessReact.Dev](https://serverlessreact.dev) homepage to measure deployed to Zeit. There's a bunch of stuff on the page slowing it down. Configs for the 8 gifs embedded via `![](giphy:)` are the only variable changing between tests.
 
-*Basic gif embed*
+_Basic gif embed_
 
 ![](https://i.imgur.com/lhRdqiE.png)
 
-*Video embed*
+_Video embed_
 
 ```
 useVideo: true
 ```
 
-![](https://i.imgur.com/wkWwQoZ.png)
+![](https://i.imgur.com/P61QGfy.png)
 
-*Iframe embed*
+_Iframe embed_
 
 ```
 useIframe: true
 ```
 
-
-
-*Lazy video embed*
-
+![](https://i.imgur.com/g9IlWJp.png)
 
 ## Contributors ✨
 
@@ -138,6 +138,7 @@ useIframe: true
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## LICENSE
