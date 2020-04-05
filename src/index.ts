@@ -30,20 +30,22 @@ function embedVideo(imageNode, giphy: GIFObject, embedWidth) {
     return imageNode;
 }
 
-async function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
-    const oembed = await fetch(
-        `https://giphy.com/services/oembed?url=${giphy.embed_url}`
-    ).then((res) => {
-        if (!res.ok) {
-            throw new Error(
-                `Request to giphy oembed for ${giphy.embed_url} return non-OK`
-            );
-        }
-        return res.json();
-    });
+function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
+    // const oembed = await fetch(
+    //     `https://giphy.com/services/oembed?url=${giphy.embed_url}`
+    // ).then((res) => {
+    //     if (!res.ok) {
+    //         throw new Error(
+    //             `Request to giphy oembed for ${giphy.embed_url} return non-OK`
+    //         );
+    //     }
+    //     return res.json();
+    // });
 
     const responsivePadding = Math.round(
-        (oembed.height / oembed.width) * Number(embedWidth.replace("%", ""))
+        (Number(giphy.images.original.height) /
+            Number(giphy.images.original.width)) *
+            Number(embedWidth.replace("%", ""))
     );
 
     imageNode.type = "html";
@@ -83,11 +85,7 @@ export default async function (
                         const data = result.data;
 
                         if (pluginOptions.useIframe) {
-                            node = await embedIframe(
-                                imageNode,
-                                data[0],
-                                embedWidth
-                            );
+                            node = embedIframe(imageNode, data[0], embedWidth);
                         } else if (pluginOptions.useVideo) {
                             node = embedVideo(imageNode, data[0], embedWidth);
                         } else {
