@@ -1,6 +1,8 @@
 declare type PluginOptions = {
     giphyApiKey: string;
-    useVideo: boolean;
+    useVideo?: boolean;
+    useIframe?: boolean;
+    embedWidth?: string;
 };
 export default function ({ cache, markdownAST }: {
     cache: any;
