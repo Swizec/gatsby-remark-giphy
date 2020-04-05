@@ -115,7 +115,7 @@ _Video embed_
 useVideo: true
 ```
 
-![](https://i.imgur.com/P61QGfy.png)
+![](https://i.imgur.com/n0Z2SlV.png)
 
 _Iframe embed_
 
@@ -123,7 +123,7 @@ _Iframe embed_
 useIframe: true
 ```
 
-![](https://i.imgur.com/g9IlWJp.png)
+![](https://i.imgur.com/QI5BaRp.png)
 
 ## Contributors ✨
 
