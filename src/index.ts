@@ -75,30 +75,33 @@ export default async function (
             transformations.push(async () => {
                 const search = url.replace(/^giphy:/, "");
 
-                let data = await cache.get(cacheKey(search));
+                let node = await cache.get(cacheKey(search));
 
-                if (!data) {
+                if (!node) {
                     try {
                         const result = await giphy.search(search);
-                        data = result.data;
-                        cache.set(cacheKey(search), result.data);
+                        const data = result.data;
+
+                        if (pluginOptions.useIframe) {
+                            node = await embedIframe(
+                                imageNode,
+                                data[0],
+                                embedWidth
+                            );
+                        } else if (pluginOptions.useVideo) {
+                            node = embedVideo(imageNode, data[0], embedWidth);
+                        } else {
+                            node = embedGif(imageNode, data[0]);
+                        }
+
+                        cache.set(cacheKey(search), node);
                     } catch (err) {
-                        err.message = `The following error appeared while searching Giphy for ${search}:\n\n${err.message}`;
+                        err.message = `The following error appeared while transforming Giphy for ${search}:\n\n${err.message}`;
                         throw err;
                     }
                 }
 
-                if (pluginOptions.useIframe) {
-                    imageNode = await embedIframe(
-                        imageNode,
-                        data[0],
-                        embedWidth
-                    );
-                } else if (pluginOptions.useVideo) {
-                    imageNode = embedVideo(imageNode, data[0], embedWidth);
-                } else {
-                    imageNode = embedGif(imageNode, data[0]);
-                }
+                return node;
             });
         }
     });
