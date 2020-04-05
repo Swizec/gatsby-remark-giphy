@@ -53,6 +53,10 @@ async function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
     return imageNode;
 }
 
+function cacheKey(search) {
+    return `giphy-result:${search}`;
+}
+
 export default async function (
     { cache, markdownAST },
     pluginOptions: PluginOptions
@@ -71,13 +75,13 @@ export default async function (
             transformations.push(async () => {
                 const search = url.replace(/^giphy:/, "");
 
-                let data = await cache.get(search);
+                let data = await cache.get(cacheKey(search));
 
                 if (!data) {
                     try {
                         const result = await giphy.search(search);
                         data = result.data;
-                        cache.set(search, result.data);
+                        cache.set(cacheKey(search), result.data);
                     } catch (err) {
                         err.message = `The following error appeared while searching Giphy for ${search}:\n\n${err.message}`;
                         throw err;

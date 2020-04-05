@@ -94,7 +94,36 @@ You can configure how `gatsby-remark-giphy` works with these helpful options:
 - `useIframe`: optional - _false_ by default. Whether to embed gifs as Giphy's iframe embed.
 - `embedWidth`: options - `100%` by default. Gif embed width for video and iframe options. 
 
-`gatsby-remark-giphy` uses plain gif-as-an-image embeds by default. Consider using iframes for best Lighthouse performance.
+`gatsby-remark-giphy` uses plain gif-as-an-image embeds by default. 
+
+### Getting the best performance
+
+Using [ServerlessReact.Dev](https://serverlessreact.dev) homepage to measure, here's a couple different configuration options and how they perform. 
+
+There's a bunch of stuff on the page slowing it down. Configs for the 8 gifs embedded via `![](giphy:)` are the only variable changing between tests.
+
+*Basic gif embed*
+
+![](https://i.imgur.com/lhRdqiE.png)
+
+*Video embed*
+
+```
+useVideo: true
+```
+
+![](https://i.imgur.com/wkWwQoZ.png)
+
+*Iframe embed*
+
+```
+useIframe: true
+```
+
+
+
+*Lazy video embed*
+
 
 ## Contributors ✨
 
