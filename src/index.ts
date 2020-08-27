@@ -66,29 +66,28 @@ export default async function (
             transformations.push(async () => {
                 const search = url.replace(/^giphy:/, "");
 
-                let node = await cache.get(cacheKey(search));
+                let giphyData = await cache.get(cacheKey(search));
 
-                if (!node) {
+                if (!giphyData) {
                     try {
                         const result = await giphy.search(search);
                         const data = result.data;
+                        giphyData = data[0];
 
-                        if (pluginOptions.useIframe) {
-                            node = embedIframe(imageNode, data[0], embedWidth);
-                        } else if (pluginOptions.useVideo) {
-                            node = embedVideo(imageNode, data[0], embedWidth);
-                        } else {
-                            node = embedGif(imageNode, data[0]);
-                        }
-
-                        cache.set(cacheKey(search), node);
+                        cache.set(cacheKey(search), giphyData);
                     } catch (err) {
                         err.message = `The following error appeared while transforming Giphy for ${search}:\n\n${err.message}`;
                         throw err;
                     }
                 }
 
-                return node;
+                if (pluginOptions.useIframe) {
+                    imageNode = embedIframe(imageNode, giphyData, embedWidth);
+                } else if (pluginOptions.useVideo) {
+                    imageNode = embedVideo(imageNode, giphyData, embedWidth);
+                } else {
+                    imageNode = embedGif(imageNode, giphyData);
+                }
             });
         }
     });
