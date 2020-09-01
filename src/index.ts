@@ -81,12 +81,25 @@ export default async function (
                     }
                 }
 
-                if (pluginOptions.useIframe) {
-                    imageNode = embedIframe(imageNode, giphyData, embedWidth);
-                } else if (pluginOptions.useVideo) {
-                    imageNode = embedVideo(imageNode, giphyData, embedWidth);
-                } else {
-                    imageNode = embedGif(imageNode, giphyData);
+                try {
+                    if (pluginOptions.useIframe) {
+                        imageNode = embedIframe(
+                            imageNode,
+                            giphyData,
+                            embedWidth
+                        );
+                    } else if (pluginOptions.useVideo) {
+                        imageNode = embedVideo(
+                            imageNode,
+                            giphyData,
+                            embedWidth
+                        );
+                    } else {
+                        imageNode = embedGif(imageNode, giphyData);
+                    }
+                } catch (e) {
+                    console.warn(`Couldn't find giphy for: ${search}`);
+                    imageNode = null;
                 }
             });
         }
