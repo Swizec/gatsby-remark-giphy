@@ -64,7 +64,7 @@ export default async function (
 
         if (url.startsWith("giphy:")) {
             transformations.push(async () => {
-                const search = url.replace(/^giphy:/, "");
+                const search = url.replace(/^giphy:/, "").replace(/_/g, " ");
 
                 let giphyData = await cache.get(cacheKey(search));
 
