@@ -77,7 +77,10 @@ export default async function (
                         cache.set(cacheKey(search), giphyData);
                     } catch (err) {
                         err.message = `The following error appeared while transforming Giphy for ${search}:\n\n${err.message}`;
-                        throw err;
+                        console.error(err);
+
+                        imageNode = null;
+                        return;
                     }
                 }
 
