@@ -79,7 +79,9 @@ export default async function (
                         err.message = `The following error appeared while transforming Giphy for ${search}:\n\n${err.message}`;
                         console.error(err);
 
-                        imageNode = null;
+                        imageNode.type = "text";
+                        imageNode.value = "";
+                        // imageNode = null;
                         return;
                     }
                 }
@@ -102,7 +104,10 @@ export default async function (
                     }
                 } catch (e) {
                     console.warn(`Couldn't find giphy for: ${search}`);
-                    imageNode = null;
+
+                    imageNode.type = "text";
+                    imageNode.value = "";
+                    // imageNode = null;
                 }
             });
         }
