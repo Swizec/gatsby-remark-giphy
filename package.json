@@ -1,6 +1,6 @@
 {
     "name": "gatsby-remark-giphy",
-    "version": "2.0.0-6",
+    "version": "2.0.0-8",
     "description": "Embed giphy search results with ![](giphy:search_term))",
     "main": "dist/index.cjs",
     "module": "dist/index.js",
@@ -21,6 +21,7 @@
     "license": "MIT",
     "dependencies": {
         "giphy-api": "^2.0.1",
+        "unist-util-is": "^6.0.0",
         "unist-util-visit": "^5.0.0"
     },
     "devDependencies": {

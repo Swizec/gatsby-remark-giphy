@@ -1,3 +1,4 @@
+import { Node } from "unist";
 import { visit } from "unist-util-visit";
 import giphyClient, { GIFObject } from "giphy-api";
 
@@ -8,7 +9,25 @@ type PluginOptions = {
     embedWidth?: string;
 };
 
-function embedGif(imageNode, giphy: GIFObject) {
+/**
+ * This is a bastardized type
+ * Covers base ImageNode and what we transform it into
+ * ASTs aren't the nicest fit for TypeScript
+ */
+type ImageNode = {
+    type: "image" | "text" | "html";
+    title: string | null;
+    url: string;
+    alt: string;
+    value?: string;
+    children?: [];
+    position: {
+        start: { line: number; column: number; offset: number };
+        end: { line: number; column: number; offset: number };
+    };
+};
+
+function embedGif(imageNode: ImageNode, giphy: GIFObject) {
     const search = imageNode.url.replace(/^giphy:/, "");
 
     imageNode.alt = search;
@@ -18,7 +37,7 @@ function embedGif(imageNode, giphy: GIFObject) {
     return imageNode;
 }
 
-function embedVideo(imageNode, giphy: GIFObject, embedWidth) {
+function embedVideo(imageNode: ImageNode, giphy: GIFObject, embedWidth) {
     const srcHTML = `<source src=${giphy.images.looping.mp4} type="video/mp4" />`;
 
     imageNode.type = "html";
@@ -30,7 +49,7 @@ function embedVideo(imageNode, giphy: GIFObject, embedWidth) {
     return imageNode;
 }
 
-function embedIframe(imageNode, giphy: GIFObject, embedWidth) {
+function embedIframe(imageNode: ImageNode, giphy: GIFObject, embedWidth) {
     const responsivePadding = Math.round(
         (Number(giphy.images.original.height) /
             Number(giphy.images.original.width)) *
@@ -59,12 +78,10 @@ export default async function (
     });
     const embedWidth = pluginOptions.embedWidth || "100%";
 
-    visit(markdownAST, "image", (imageNode) => {
+    visit(markdownAST, "image", (imageNode: ImageNode) => {
         const url = imageNode.url as string;
 
         if (url.startsWith("giphy:")) {
-            console.log(imageNode);
-            return;
             transformations.push(async () => {
                 const search = url.replace(/^giphy:/, "").replace(/_/g, " ");
 
@@ -89,21 +106,21 @@ export default async function (
                 }
 
                 try {
-                    if (pluginOptions.useIframe) {
-                        imageNode = embedIframe(
-                            imageNode,
-                            giphyData,
-                            embedWidth
-                        );
-                    } else if (pluginOptions.useVideo) {
-                        imageNode = embedVideo(
-                            imageNode,
-                            giphyData,
-                            embedWidth
-                        );
-                    } else {
-                        imageNode = embedGif(imageNode, giphyData);
-                    }
+                    // if (pluginOptions.useIframe) {
+                    //     imageNode = embedIframe(
+                    //         imageNode,
+                    //         giphyData,
+                    //         embedWidth
+                    //     );
+                    // } else if (pluginOptions.useVideo) {
+                    //     imageNode = embedVideo(
+                    //         imageNode,
+                    //         giphyData,
+                    //         embedWidth
+                    //     );
+                    // } else {
+                    imageNode = embedGif(imageNode, giphyData);
+                    // }
                 } catch (e) {
                     console.warn(`Couldn't find giphy for: ${search}`);
 
