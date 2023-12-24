@@ -63,6 +63,8 @@ export default async function (
         const url = imageNode.url as string;
 
         if (url.startsWith("giphy:")) {
+            console.log(imageNode);
+            return;
             transformations.push(async () => {
                 const search = url.replace(/^giphy:/, "").replace(/_/g, " ");
 
@@ -88,19 +90,19 @@ export default async function (
 
                 try {
                     if (pluginOptions.useIframe) {
-                        // imageNode = embedIframe(
-                        //     imageNode,
-                        //     giphyData,
-                        //     embedWidth
-                        // );
+                        imageNode = embedIframe(
+                            imageNode,
+                            giphyData,
+                            embedWidth
+                        );
                     } else if (pluginOptions.useVideo) {
-                        // imageNode = embedVideo(
-                        //     imageNode,
-                        //     giphyData,
-                        //     embedWidth
-                        // );
+                        imageNode = embedVideo(
+                            imageNode,
+                            giphyData,
+                            embedWidth
+                        );
                     } else {
-                        // imageNode = embedGif(imageNode, giphyData);
+                        imageNode = embedGif(imageNode, giphyData);
                     }
                 } catch (e) {
                     console.warn(`Couldn't find giphy for: ${search}`);
