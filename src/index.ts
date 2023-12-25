@@ -41,7 +41,7 @@ function embedVideo(imageNode: ImageNode, giphy: GIFObject, embedWidth) {
     const srcHTML = `<source src=${giphy.images.looping.mp4} type="video/mp4" />`;
 
     imageNode.type = "html";
-    imageNode.children = undefined;
+    // imageNode.children = undefined;
     imageNode.value = `<video style="margin: auto auto; display: block; max-width: ${embedWidth}" autoplay loop muted playsinline loading="lazy">
             ${srcHTML}
         </video>`;
@@ -57,7 +57,7 @@ function embedIframe(imageNode: ImageNode, giphy: GIFObject, embedWidth) {
     );
 
     imageNode.type = "html";
-    imageNode.children = undefined;
+    // imageNode.children = undefined;
     imageNode.value = `<div style="width:${embedWidth};height:0;padding-bottom:${responsivePadding}%;position:relative;margin: 0 auto"><iframe src="${giphy.embed_url}" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen loading="lazy"></iframe></div>`;
 
     return imageNode;
@@ -106,21 +106,21 @@ export default async function (
                 }
 
                 try {
-                    // if (pluginOptions.useIframe) {
-                    //     imageNode = embedIframe(
-                    //         imageNode,
-                    //         giphyData,
-                    //         embedWidth
-                    //     );
-                    // } else if (pluginOptions.useVideo) {
-                    //     imageNode = embedVideo(
-                    //         imageNode,
-                    //         giphyData,
-                    //         embedWidth
-                    //     );
-                    // } else {
-                    imageNode = embedGif(imageNode, giphyData);
-                    // }
+                    if (pluginOptions.useIframe) {
+                        imageNode = embedIframe(
+                            imageNode,
+                            giphyData,
+                            embedWidth
+                        );
+                    } else if (pluginOptions.useVideo) {
+                        imageNode = embedVideo(
+                            imageNode,
+                            giphyData,
+                            embedWidth
+                        );
+                    } else {
+                        imageNode = embedGif(imageNode, giphyData);
+                    }
                 } catch (e) {
                     console.warn(`Couldn't find giphy for: ${search}`);
 
