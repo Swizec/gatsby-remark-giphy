@@ -1,6 +1,6 @@
 {
     "name": "gatsby-remark-giphy",
-    "version": "2.0.0-9",
+    "version": "2.0.0",
     "description": "Embed giphy search results with ![](giphy:search_term))",
     "main": "dist/index.cjs",
     "module": "dist/index.js",
