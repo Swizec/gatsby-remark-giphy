@@ -1,4 +1,4 @@
-declare type PluginOptions = {
+type PluginOptions = {
     giphyApiKey: string;
     useVideo?: boolean;
     useIframe?: boolean;
